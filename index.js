@@ -1,3 +1,11 @@
 #!/usr/bin/env node
+import fs from 'node:fs'
 
-console.log(`Hello, Everyone`);
+const note = process.argv[2];
+
+const newNote = {
+  note,
+  id: Date.now(),
+};
+
+console.log(newNote);
