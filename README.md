@@ -7,4 +7,6 @@ npm link
 # Checking the project present in the path
 which note
 
+# note command help
+note --help
 ```
