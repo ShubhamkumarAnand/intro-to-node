@@ -1,6 +1,12 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { newNote } from "./notes.js";
+import {
+  findNotes,
+  getAllNotes,
+  newNote,
+  removeAllNotes,
+  removeNote,
+} from "./notes.js";
 
 yargs(hideBin(process.argv))
   .command(
@@ -34,7 +40,8 @@ yargs(hideBin(process.argv))
       });
     },
     async (argv) => {
-      
+      const note = await findNotes(argv.filter);
+      console.log(note);
     }
   )
   .command(
@@ -46,7 +53,10 @@ yargs(hideBin(process.argv))
         description: "The id of the note you want to remove",
       });
     },
-    async (argv) => {}
+    async (argv) => {
+      const noteId = await removeNote(argv.id);
+      console.log(`The note with ${noteId} is deleted`);
+    }
   )
   .command(
     "web [port]",
@@ -61,10 +71,22 @@ yargs(hideBin(process.argv))
     async (argv) => {}
   )
   .command(
+    "all",
+    "list all the notes",
+    () => {},
+    async () => {
+      const notes = await getAllNotes();
+      console.log(notes);
+    }
+  )
+  .command(
     "clean",
     "remove all notes",
     () => {},
-    async (argv) => {}
+    async (argv) => {
+      await removeAllNotes();
+      console.log("All notes deleted");
+    }
   )
   .demand(1)
   .parse();

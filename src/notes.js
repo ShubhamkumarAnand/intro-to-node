@@ -15,9 +15,6 @@ export const getAllNotes = async () => {
   return notes;
 };
 
-/**
- * @param {string} filter
- */
 export const findNotes = async (filter) => {
   const notes = await getAllNotes();
   return notes.filter((note) =>
