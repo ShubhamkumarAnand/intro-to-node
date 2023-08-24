@@ -1,5 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import { newNote } from "./notes.js";
 
 yargs(hideBin(process.argv))
   .command(
@@ -11,8 +12,10 @@ yargs(hideBin(process.argv))
         description: "The content of the note to create",
       });
     },
-    (argv) => {
-      console.log(argv.note);
+    async (argv) => {
+      const tags = argv.tags ? argv.tags.split(",") : [];
+      const note = await newNote(argv.note, tags);
+      console.log("Note Created! ", note);
     }
   )
   .option("tags", {
@@ -30,7 +33,9 @@ yargs(hideBin(process.argv))
         type: "string",
       });
     },
-    async (argv) => {}
+    async (argv) => {
+      
+    }
   )
   .command(
     "remove <id>",

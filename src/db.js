@@ -7,14 +7,14 @@ export const getDB = async () => {
   return JSON.parse(db);
 };
 
-export const saveDB = async () => {
+export const saveDB = async (db) => {
   await fs.writeFile(DB_PATH, JSON.stringify(db, null, 2));
   return db;
 };
 
-export const addDB = async () => {
+export const insertDB = async (note) => {
   const db = await getDB();
   db.notes.push(note);
-  await saveDB();
+  await saveDB(db);
   return note;
 };
